@@ -70,6 +70,6 @@ public class Movie {
 		return result;
 	}
 	public boolean isHaveActor(String actor){
-		return this.actors.toString().indexOf(actor) >= 0;
+		return this.actors.toString().toUpperCase().indexOf(actor.toUpperCase()) >= 0;
 	}
 }

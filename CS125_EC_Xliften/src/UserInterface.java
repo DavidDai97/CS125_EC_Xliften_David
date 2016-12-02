@@ -48,7 +48,7 @@ public class UserInterface {
 			}
 			else{
 				String quit="";
-				TextIO.putln("Are you sure you want to quit? - all your data will be lost.");
+				TextIO.put("Are you sure you want to quit? - all your data will be lost.");
 				while(!quit.equalsIgnoreCase("Y") && !quit.equalsIgnoreCase("N")){
 					TextIO.putln("Press Y to quit, and press N to stay here!");
 					quit=TextIO.getlnString();
@@ -102,16 +102,17 @@ public class UserInterface {
 		int actorNum = 0;
 		int rating=0, genere = 0;
 		Actor movieActor = new Actor();
-		while(movieTitle == ""){
+		while(movieTitle.length() == 0){
 			TextIO.putln("Please enter the title of the movie! After entering, press ENTER!");
 			movieTitle = TextIO.getlnString();
-			String tempStr = movieTitle.substring(0, 1);
-			tempStr = tempStr.toUpperCase();
-			movieTitle = tempStr + movieTitle.substring(1);
+			//System.out.println(movieTitle);
 		}
+		String tempStr = movieTitle.substring(0, 1);
+		tempStr = tempStr.toUpperCase();
+		movieTitle = tempStr + movieTitle.substring(1);
 		TextIO.putln("Please enter a description of that movie! After entering, press ENTER!");
 		movieDescription = TextIO.getlnString();
-		if(movieDescription == ""){
+		if(movieDescription.length() == 0){
 			movieDescription = "No description";
 		}
 		while(true){
@@ -165,7 +166,6 @@ public class UserInterface {
 	}
 	
 	public static void option3(MovieList list){
-		System.out.println(MovieList.getNum());
 		if(MovieList.getNum() == 0){
 			System.out.println("There is currently no movie in the list! Try again later!");
 			return;
@@ -207,7 +207,7 @@ public class UserInterface {
 			System.out.println("There is currently no movie in the list! Try again later!");
 			return;
 		}
-		while(actor == ""){
+		while(actor.length() == 0){
 			TextIO.putln("Please enter the actor/actress you want to search for! After entering, press ENTER!");
 			actor = TextIO.getlnString();
 		}
