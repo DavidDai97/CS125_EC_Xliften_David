@@ -29,6 +29,7 @@ public class Actor {
 	public Actor(){
 		this.name = "INIT";
 		this.next = null;
+		this.isFirst = true;
 		//length++;
 	}
 	//////////////////////////////////constructors/////////////////////////////////

@@ -24,6 +24,10 @@ public class Movie {
 		if(genere == 5) return "DOCUMENTARY";
 		return "ANIME";
 	}
+	public int getGenereInt(){
+		if(genere <= 0 || genere >6) return 6;
+		return genere;
+	}
 	public boolean getSeen(){
 		return this.haveSeen;
 	}
@@ -37,15 +41,6 @@ public class Movie {
 	public void setRating(int newRate){
 		if(newRate >= 1 && newRate <= 5) this.rating = newRate;
 	}
-	public void setGenere(String newGenere){
-		newGenere = newGenere.toUpperCase();
-		if(newGenere.equals("ACTION")) this.genere = 1;
-		if(newGenere.equals("ROMANCE")) this.genere = 2;
-		if(newGenere.equals("COMEDY")) this.genere = 3;
-		if(newGenere.equals("DRAMA")) this.genere = 4;
-		if(newGenere.equals("DOCUMENTARY")) this.genere = 5;
-		this.genere = 6;
-	}
 	public void setSeen(boolean seen){
 		this.haveSeen = seen;
 	}
@@ -58,19 +53,23 @@ public class Movie {
 		this.movieDescription = "INIT";
 		this.actors = new Actor();
 	}
-	public Movie(String newTitle, int newRating, String newGenere, boolean seen, String description, Actor newActors){
+	public Movie(String newTitle, int newRating, int newGenere, boolean seen, String description, Actor newActors){
 		this.title = newTitle;
 		this.rating = newRating;
-		this.setGenere(newGenere);
+		this.genere = newGenere;
 		this.haveSeen = seen;
 		this.movieDescription = description;
 		this.actors = newActors;
 	}
 	/////////////////////////////////////////Constructors//////////////////////////
 	public String toString(){
-		String result = this.title;
+		String result = "\tMovie title:		" + this.title;
 		if(!this.haveSeen) result += "(*)";
-		result = result + " belongs to genere " + this.getGenere() + " acted by " + this.actors.toString() + ", and has a rate of" + this.rating + ". \nHere is the description: " + this.getDes();
+		result += "\n";
+		result = result + "\tMovie genere:		" + this.getGenere() + "\n\tActors/Actresses:	" + this.actors.toString() + "\n\tRatings:		" + this.rating + "\n\tDescription:		" + this.getDes() + "\n";
 		return result;
+	}
+	public boolean isHaveActor(String actor){
+		return this.actors.toString().indexOf(actor) >= 0;
 	}
 }

@@ -9,8 +9,7 @@ public class UserInterface {
 		Boolean isQuit = false;
 		int option = 0;
 		MovieList list = new MovieList();
-		while(!isQuit)
-		{
+		while(!isQuit){
 			option=userInterface();
 			if(option == 1){
 				list.insert(option1());
@@ -18,65 +17,63 @@ public class UserInterface {
 				returnMainMenu();
 			}
 			else if(option == 2){
-				///option2(list);
-				TextIO.putln("Remove success");
+				if(MovieList.getNum() != 0){
+					option2(list);
+					TextIO.putln("Remove success");
+				}
+				else{
+					System.out.println("There is currently no movie in the list! Try again later!");
+				}
 				returnMainMenu();
 			}
 			else if(option == 3){
-				//option3(list);
+				option3(list);
 				returnMainMenu();
 			}
 			else if(option == 4){
-				//option4(list);
+				option4(list);
 				returnMainMenu();
 			}
 			else if(option == 5){
-				//option5(list);
+				option5(list);
 				returnMainMenu();
 			}
 			else if(option == 6){
-				//option6(list);
+				option6(list);
 				returnMainMenu();
 			}
 			else if(option == 7){
+				option7(list);
 				returnMainMenu();
 			}
-			else
-			{
+			else{
 				String quit="";
 				TextIO.putln("Are you sure you want to quit? - all your data will be lost.");
-				while(!quit.equalsIgnoreCase("Y") && !quit.equalsIgnoreCase("N"))
-				{
+				while(!quit.equalsIgnoreCase("Y") && !quit.equalsIgnoreCase("N")){
 					TextIO.putln("Press Y to quit, and press N to stay here!");
 					quit=TextIO.getlnString();
 				}
-				if(quit.equalsIgnoreCase("Y"))
-				{
+				if(quit.equalsIgnoreCase("Y")){
 					isQuit=true;
 				}
-				else
-				{
+				else{
 					isQuit=false;
 				}
 			}
 		}
 	}
 	
-	public static void returnMainMenu()
-	{
+	public static void returnMainMenu(){
 		TextIO.putln("Return the main menu, hit return!!");
 		String temp=" ";
-		while(!temp.equals(""))
-		{
+		while(!temp.equals("")){
 			temp=TextIO.getln();
 		}
 	}
 	
-	public static int userInterface()
-	{
+	public static int userInterface(){
 		int option=0;
-		while(option==0)
-		{
+		while(option==0){
 			System.out.println("Welcome to the Movie Rating App! Select an option below:");
 			System.out.println();
 			System.out.println("1) add a movie");
@@ -90,123 +87,139 @@ public class UserInterface {
 			System.out.println();
 			System.out.println("Select an option above:");
 			option=TextIO.getlnInt();
-			if(option<0 || option>8)
-			{
-				System.out.println("Please enter a valid option number(must be between 1 and 7!!!)");
+			if(option<0 || option>8){
+				System.out.println("Please enter a valid option number(must be between 1 and 8!!!)");
 				option=0;
 			}
 		}
 		return option;
 	}
 
-	public static Movie option1()
-	{
-		String workLocation="", workoutBuddy="";
-		double milesCovered=0;
-		//Date startingTime, endingTime;
-		long duration;
-		int rating=0;
-		while(workLocation=="")
-		{
-			TextIO.putln("Please enter a workout location! After entering, press ENTER!");
-			workLocation=TextIO.getlnString();
+	public static Movie option1(){
+		String movieTitle = "", movieDescription = "";
+		boolean seen;
+		String temp ="";
+		int actorNum = 0;
+		int rating=0, genere = 0;
+		Actor movieActor = new Actor();
+		while(movieTitle == ""){
+			TextIO.putln("Please enter the title of the movie! After entering, press ENTER!");
+			movieTitle = TextIO.getlnString();
+			String tempStr = movieTitle.substring(0, 1);
+			tempStr = tempStr.toUpperCase();
+			movieTitle = tempStr + movieTitle.substring(1);
 		}
-		TextIO.putln("Please enter a workout buddy! After entering, press ENTER! (If you are working out yourself, just press ENTER!)");
-		workoutBuddy=TextIO.getlnString();
-		if(workoutBuddy=="")
-		{
-			workoutBuddy=null;
+		TextIO.putln("Please enter a description of that movie! After entering, press ENTER!");
+		movieDescription = TextIO.getlnString();
+		if(movieDescription == ""){
+			movieDescription = "No description";
 		}
-		while(milesCovered==0)
-		{
-			TextIO.putln("Please enter the miles you have covered! After entering, press ENTER!");
-			milesCovered=TextIO.getlnDouble();
+		while(true){
+			TextIO.putln("Have you watched that movie? \"Y\" for yes and \"N\" for no. After entering, press ENTER!");
+			temp=TextIO.getlnString();
+			if(temp.equalsIgnoreCase("Y")){
+				seen = true;
+				break;
+			}
+			if(temp.equalsIgnoreCase("N")){
+				seen = false;
+				break;
+			}
 		}
-		TextIO.putln("Hit return to start workout!!");
-		String temp="  ";
-		while(!temp.equals(""))
-		{
-			temp=TextIO.getln();
+		while(genere <1 || genere > 6){
+			TextIO.putln("Please enter the genere of the movie! After entering, press ENTER!");
+			TextIO.putln("1. Action\n2. Romance\n3. Comedy\n4. Drama\n5. Documentary\n6. Anime");
+			genere = TextIO.getlnInt();
 		}
-		TextIO.putln("Start working now!!\n");
-		temp=" ";
-		//startingTime=new Date();
-		TextIO.putln("Hit return to end workout!!");
-		while(!temp.equals(""))
-		{
-			temp=TextIO.getln();
-		}
-		TextIO.putln("End working now!!\n");
-		//endingTime=new Date();
-		//duration=endingTime.getTime()-startingTime.getTime();
-		while(rating<=0 || rating>10)
-		{
-			TextIO.putln("Provide a rating to workout! (1: great; 10: poor) After entering, press ENTER!");
+		while(rating<=0 || rating>5){
+			TextIO.putln("Provide a rating for that movie! (1: poor; 5: great) After entering, press ENTER!");
 			rating=TextIO.getlnInt();
 		}
-		//Workout event=new Workout(workLocation, milesCovered, startingTime, duration, rating, workoutBuddy);
-		return null;
+		while(actorNum == 0){
+			TextIO.putln("Please enter the number of actors/actress in the movie. After entering, press ENTER!");
+			actorNum = TextIO.getlnInt();
+		}
+		for(int i = 0; i < actorNum; i++){
+			String actorName = "";
+			while(actorName == ""){
+				TextIO.putln("Please enter the #" + (i+1) + " actor/actress. After entering, press ENTER!");
+				actorName = TextIO.getlnString();
+			}
+			movieActor.addActor(actorName);
+			actorName = "";
+		}
+		Movie data=new Movie(movieTitle, rating, genere, seen, movieDescription, movieActor);
+		return data;
 	}
-/*
-	public static void option2(WorkoutList list)
-	{
+
+	public static void option2(MovieList list){
 		int tempOption=0;
-		System.out.println("Here is all the workouts in the list. Which one do you want to remove?");
+		System.out.println("Here is all the Movies in the list. Which one do you want to remove?");
 		option3(list);
 		tempOption=TextIO.getlnInt();
-		while(tempOption<1 || tempOption>WorkoutList.number-1)
-		{
+		while(tempOption < 1 || tempOption > MovieList.getNum()){
 			System.out.println("Please choose an existing workout! Choose again please!!");
 			tempOption=TextIO.getlnInt();
 		}
-		list.removeWorkout(tempOption);
+		list.removeMovie(tempOption);
 	}
 	
-	public static void option3(WorkoutList list)
-	{
-		list.getNext().sortByTime();
-		list.getNext().printList();
+	public static void option3(MovieList list){
+		System.out.println(MovieList.getNum());
+		if(MovieList.getNum() == 0){
+			System.out.println("There is currently no movie in the list! Try again later!");
+			return;
+		}
+		System.out.println(list.toString(0));
 	}
 	
-	public static void option4(WorkoutList list)
-	{
-		String name="";
-		TextIO.putln("Who do you want to search for?");
-		name=TextIO.getlnString();
-		if(!list.getNext().printBuddyList(name, false))
-		{
-			TextIO.putln("Sorry, you haven't worked with " + name + " yet.");
+	public static void option4(MovieList list){
+		int standardRating = 0;
+		if(MovieList.getNum() == 0){
+			System.out.println("There is currently no movie in the list! Try again later!");
+			return;
 		}
+		while(standardRating <= 0 || standardRating > 5){
+			TextIO.putln("Please enter the rating.(1: poor; 5: great) After entering, press ENTER!");
+			standardRating=TextIO.getlnInt();
+		}
+		System.out.println(list.toStringLargerThan(0, standardRating));
 	}
 	
-	public static void option5(WorkoutList list)
+	public static void option5(MovieList list)
 	{
-		String location="";
-		TextIO.putln("Where do you want to search for?");
-		location=TextIO.getlnString();
-		list.getNext().sortByRating();
-		if(!list.getNext().printLocationList(location, false))
-		{
-			TextIO.putln("Sorry, you haven't worked at " + location + " yet.");
+		int genere = 0;
+		if(MovieList.getNum() == 0){
+			System.out.println("There is currently no movie in the list! Try again later!");
+			return;
 		}
-		list.getNext().sortByTime();
+		while(genere <1 || genere > 6){
+			TextIO.putln("Please enter the genere of the movie! After entering, press ENTER!");
+			TextIO.putln("1. Action\n2. Romance\n3. Comedy\n4. Drama\n5. Documentary\n6. Anime");
+			genere = TextIO.getlnInt();
+		}
+		System.out.println(list.toStringInGenere(0, genere));
 	}
 	
-	public static void option6(WorkoutList list)
-	{
-		double mileage=0;
-		TextIO.putln("Where do you want to search for your best rating?");
-		mileage=TextIO.getlnDouble();
-		list.getNext().sortByRating();
-		if(list.getNext().searchForMileage(mileage)==null)
-		{
-			TextIO.putln("Sorry, there is no workout at such mileage!!");
+	public static void option6(MovieList list){
+		String actor = "";
+		if(MovieList.getNum() == 0){
+			System.out.println("There is currently no movie in the list! Try again later!");
+			return;
 		}
-		else
-		{
-			System.out.println(list.getNext().searchForMileage(mileage));
+		while(actor == ""){
+			TextIO.putln("Please enter the actor/actress you want to search for! After entering, press ENTER!");
+			actor = TextIO.getlnString();
 		}
-		list.getNext().sortByTime();
+		System.out.println(list.toStringHaveActor(0, actor));
 	}
-*/
+	
+	public static void option7(MovieList list)
+	{
+		if(MovieList.getNum() == 0){
+			System.out.println("There is currently no movie in the list! Try again later!");
+			return;
+		}
+		System.out.println(list.toStringSeen(0));
+	}
 }
